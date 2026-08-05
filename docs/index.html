@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TCGA Pan-Cancer Multi-Center WSI Retrieval Dataset</title>
+    <meta
+      name="description"
+      content="A lively public showcase for a multi-center TCGA whole-slide image retrieval dataset."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Dataset home">
+        <span class="brand-mark"></span>
+        <span>TCGA WSI Retrieval</span>
+      </a>
+      <nav>
+        <a href="#atlas">Atlas</a>
+        <a href="#taxonomy">Taxonomy</a>
+        <a href="#schema">Schema</a>
+        <a href="#download">Download</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Multi-center computational pathology benchmark</p>
+          <h1 id="hero-title">TCGA Pan-Cancer Whole-Slide Retrieval Dataset</h1>
+          <p class="hero-lede">
+            A public index of TCGA diagnostic slides and pre-computed feature paths,
+            organized into center-aware retrieval tasks across cancers, organs,
+            hospitals, and countries.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#atlas">Explore centers</a>
+            <a class="button secondary" href="data/TCGA_Pan_Cancer_all_center_task.csv" download>
+              Download CSV
+            </a>
+          </div>
+        </div>
+
+        <div class="metric-ribbon" aria-label="Dataset summary">
+          <article>
+            <strong data-stat="slides">10,837</strong>
+            <span>slides</span>
+          </article>
+          <article>
+            <strong data-stat="cases">9,084</strong>
+            <span>cases</span>
+          </article>
+          <article>
+            <strong data-stat="projects">32</strong>
+            <span>TCGA projects</span>
+          </article>
+          <article>
+            <strong data-stat="centers">7</strong>
+            <span>retrieval centers</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="atlas" aria-labelledby="atlas-title">
+        <div class="section-heading">
+          <p class="eyebrow">Center-aware benchmark</p>
+          <h2 id="atlas-title">Seven retrieval worlds, one pan-cancer index</h2>
+          <p>
+            Select a center to inspect its slide volume, case count, project coverage,
+            source institutions, and national composition.
+          </p>
+        </div>
+
+        <div class="center-layout">
+          <div class="center-list" id="center-list" aria-label="Data centers"></div>
+          <article class="detail-panel" aria-live="polite">
+            <div class="panel-topline">
+              <span id="selected-task">task 0</span>
+              <span id="selected-nations">1 nation</span>
+            </div>
+            <h3 id="selected-center">US center 1</h3>
+            <div class="detail-grid">
+              <div>
+                <strong id="center-slides">1,881</strong>
+                <span>slides</span>
+              </div>
+              <div>
+                <strong id="center-cases">1,740</strong>
+                <span>cases</span>
+              </div>
+              <div>
+                <strong id="center-projects">25</strong>
+                <span>projects</span>
+              </div>
+              <div>
+                <strong id="center-sites">3</strong>
+                <span>source sites</span>
+              </div>
+            </div>
+            <div class="mini-bars" id="center-nation-bars" aria-label="Nation distribution"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section split-section" id="taxonomy" aria-labelledby="taxonomy-title">
+        <div class="section-heading">
+          <p class="eyebrow">Cancer and organ taxonomy</p>
+          <h2 id="taxonomy-title">Browse the labels used for retrieval</h2>
+          <p>
+            Switch between organ systems and TCGA disease projects. The chart is
+            computed directly from the CSV manifest loaded by this page.
+          </p>
+        </div>
+
+        <div class="explorer">
+          <div class="toolbar" role="toolbar" aria-label="Taxonomy controls">
+            <div class="segmented" role="tablist" aria-label="Chart mode">
+              <button class="active" data-mode="primary_site" role="tab" aria-selected="true">
+                Organs
+              </button>
+              <button data-mode="project_id" role="tab" aria-selected="false">
+                Cancer projects
+              </button>
+              <button data-mode="tissue_source_site_nation" role="tab" aria-selected="false">
+                Countries
+              </button>
+              <button data-mode="clean_tissue_source_site_name" role="tab" aria-selected="false">
+                Tissue source site
+              </button>
+            </div>
+            <input id="chart-filter" type="search" placeholder="Filter labels" aria-label="Filter labels" />
+          </div>
+          <div class="bar-chart" id="taxonomy-chart" aria-label="Dataset label distribution"></div>
+        </div>
+      </section>
+
+      <section class="section" id="schema" aria-labelledby="schema-title">
+        <div class="section-heading">
+          <p class="eyebrow">Manifest schema</p>
+          <h2 id="schema-title">Slide-level fields designed for retrieval studies</h2>
+        </div>
+        <div class="schema-grid">
+          <article>
+            <h3>Identity</h3>
+            <p><code>uuid</code>, <code>slide_id</code>, <code>case_id</code>, <code>file_name</code></p>
+          </article>
+          <article>
+            <h3>Labels</h3>
+            <p><code>project_id</code>, <code>primary_site</code>, <code>site_id</code>, <code>disease_id</code></p>
+          </article>
+          <article>
+            <h3>Feature path</h3>
+            <p><code>sub_path</code> points to the corresponding pre-computed <code>.pth</code> feature file.</p>
+          </article>
+          <article>
+            <h3>Center metadata</h3>
+            <p>
+              <code>data_center</code>, <code>task_id</code>, and tissue source site fields
+              describe the center split and origin.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section download-band" id="download" aria-labelledby="download-title">
+        <div>
+          <p class="eyebrow">Ready for GitHub Pages</p>
+          <h2 id="download-title">A compact public showcase for the dataset</h2>
+          <p>
+            Host this <code>docs</code> folder from a public GitHub repository to
+            publish the page. The visualization is static, client-side, and does
+            not need a build step.
+          </p>
+        </div>
+        <a class="button primary" href="data/TCGA_Pan_Cancer_all_center_task.csv" download>
+          Download manifest
+        </a>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        TCGA Pan-Cancer Multi-Center WSI Retrieval Dataset. Built for public
+        dataset documentation and benchmark discovery.
+      </p>
+    </footer>
+
+    <script src="assets/dataset-summary.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
